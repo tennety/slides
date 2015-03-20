@@ -1,0 +1,157 @@
+@-ms-viewport {
+  width: device-width;
+}
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+body p {
+  line-height: 1.3em;
+}
+
+a, a:visited {
+  color: inherit;
+}
+
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#app {
+  opacity: 0;
+  -webkit-animation: fadeIn 0.5s ease-in 1;
+  -moz-animation: fadeIn 0.5s ease-in 1;
+  animation: fadeIn 0.5s ease-in 1;
+
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-delay: 0.5s;
+  -moz-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.slide-content {
+  position: absolute;
+  bottom: 0px;
+  left: 10%;
+
+  width: 80%;
+}
+
+.slide-content h1{
+  cursor: pointer;
+}
+
+.slide-content .edit{
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+}
+
+.slide-content .title-display:hover .edit{
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+}
+
+.title-display {
+  display: block;
+}
+
+.title-edit {
+  display: none;
+}
+
+.editing .title-display {
+  display: none;
+}
+
+.editing .title-edit{
+  display: block;
+  font-size: 20px;
+  padding: 5px;
+  width: 80%;
+  border-radius: 3px;
+  border: none;
+}
+
+.banner {
+  background: rgba(100, 100, 100, 0.3);
+  color: #fff;
+  height: 90px;
+  padding: 30px;
+  text-align: center;
+  z-index: 100;
+}
+
+.bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.control {
+  position: absolute;
+  bottom: 0;
+  width: 10%;
+}
+
+.next {
+  right: 0;
+}
+
+.next:before {
+  content: "»";
+}
+
+.previous {
+  left: 0;
+}
+
+.previous:before {
+  content: "«";
+}
+
+a.control {
+  color: #fff;
+  font-size: 24px;
+  text-decoration: none;
+}
