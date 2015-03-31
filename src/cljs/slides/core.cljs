@@ -2,16 +2,30 @@
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]))
 
-(defonce app-state (atom {:text "Chestnut"}))
+(defonce app-state (atom {:slide {}}))
 
-(defn main []
-  (om/root
-    (fn [app owner]
-      (reify
+(defn slide [model owner]
+  (reify
+    om/IRender
+    (render [_]
+      (dom/section #js {:className "slide"}
+        (when-let [bg (:bg model)]
+          (dom/img #js {:className "bg" :src bg}))
+        (dom/div #js {:className "slide-content"}
+           (dom/h1 #js {} (:title model)))))))
+
+(defn app [model owner]
+  (reify
         om/IRender
         (render [_]
-          (dom/h1 nil (str "Hello " (:text app) "!")))))
-    app-state
-    {:target (. js/document (getElementById "app"))}))
+          (dom/div #js {:className "content"}
+                   (om/build slide (:slide model))))))
 
-;; (swap! app-state assoc :text "LambdaConf 2015")
+(def slide-img
+  {:title "A Bird's Eye View of ClojureScript"
+   :bg "/images/gull.jpg"})
+
+(defn main []
+  (om/root app app-state {:target (. js/document (getElementById "app"))}))
+
+(swap! app-state assoc :slide slide-img)
