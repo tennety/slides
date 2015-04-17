@@ -14,17 +14,13 @@ html {
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
   margin: 0;
   padding: 0;
-}
-
-input, select {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-  font-weight: 300;
 }
 
 body p {
@@ -73,6 +69,7 @@ a, a:visited {
   padding: 30px;
   background: rgba(100, 100, 100, 0.2);
   color: #fff;
+  z-index: 100;
 }
 
 img.bg {
