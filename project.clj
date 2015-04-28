@@ -16,7 +16,8 @@
                  [compojure "1.3.1"]
                  [enlive "1.1.5"]
                  [om "0.8.0-rc1"]
-                 [environ "1.0.0"]]
+                 [environ "1.0.0"]
+                 [secretary "1.2.3"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]
             [lein-environ "1.0.0"]]

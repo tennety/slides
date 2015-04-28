@@ -44,9 +44,7 @@ a, a:visited {
   to   { opacity: 1; }
 }
 
-.slide {
-  min-height: 100%;
-
+#app {
   opacity: 0;
   -webkit-animation: fadeIn 0.5s ease-in 1;
   -moz-animation: fadeIn 0.5s ease-in 1;
