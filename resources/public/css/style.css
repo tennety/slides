@@ -67,6 +67,43 @@ a, a:visited {
   width: 80%;
 }
 
+.slide-content h1{
+  cursor: pointer;
+}
+
+.slide-content .edit{
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+}
+
+.slide-content .title-display:hover .edit{
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+}
+
+.title-display {
+  display: block;
+}
+
+.title-edit {
+  display: none;
+}
+
+.editing .title-display {
+  display: none;
+}
+
+.editing .title-edit{
+  display: block;
+  font-size: 20px;
+  padding: 5px;
+  width: 80%;
+  border-radius: 3px;
+  border: none;
+}
+
 .banner {
   background: rgba(100, 100, 100, 0.3);
   color: #fff;

@@ -28,6 +28,44 @@
                         #(-> % .-token sec/dispatch!))
     (.setEnabled history true)))
 
+(defn next-slide-path [model f]
+  (let [slides (:slides @model)
+        current-pos (:index @model)
+        upcoming-pos (f (js/parseInt current-pos))
+        index (if (within-slides? upcoming-pos model) upcoming-pos current-pos)]
+    (apply str (interpose "/" ["#" "slides" index]))))
+
+(defn set-editing-state [owner editing text]
+  (om/set-state! owner :editing editing)
+  (om/set-state! owner :text text)
+  (js/setTimeout #(.focus (om/get-node owner "title-edit")) 100))
+
+(defn update-title-on-enter [event owner model]
+  (let [key-code (.. event -keyCode)
+        new-title (om/get-state owner :text)]
+    (when (= key-code 13)
+      (om/update! model :title new-title)
+      (set-editing-state owner false new-title))))
+
+(defn slide-title [model owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:editing false
+       :text ""})
+    om/IRenderState
+    (render-state [_ state]
+      (dom/div #js {:className (when (om/get-state owner :editing) "editing")}
+               (dom/input #js {:className "title-edit"
+                               :value (om/get-state owner :text)
+                               :ref "title-edit"
+                               :onChange #(om/set-state! owner :text (.. % -target -value))
+                               :onBlur #(om/set-state! owner :editing false)
+                               :onKeyUp #(update-title-on-enter % owner model)})
+               (dom/h1 #js {:className "title-display"
+                            :onClick #(set-editing-state owner true (:title model))} (:title model)
+                       (dom/small #js {:className "edit"} " ✎"))))))
+
 (defn slide [model owner]
   (reify
     om/IRender
@@ -36,7 +74,7 @@
                    (when-let [bg (:bg model)]
                      (dom/img #js {:className "bg" :src bg}))
                    (dom/div #js {:className "slide-content banner"}
-                            (dom/h1 #js {} (:title model)))))))
+                            )))))
 
 (defn next-slide-path [model f]
   (let [slides (:slides @model)
@@ -56,6 +94,9 @@
                (dom/a #js {:className "control banner next"
                            :href (next-slide-path model inc)})))))
 
+(defn main []
+  (om/root app app-state {:target (. js/document (getElementById "app"))}))
+
 (def slide-imgs
   [{:title "A Bird's Eye View of ClojureScript"
     :bg "/images/gull.jpg"}
@@ -64,7 +105,9 @@
    {:title "Event Handling"
     :bg "/images/swan.jpg"}
    {:title "Client-side Routing"
-    :bg "/images/heron.jpg"}])
+    :bg "/images/heron.jpg"}
+   {:title "Adding Local State"
+    :bg "/images/raven.jpg"}])
 
 (defn main []
   (om/root app app-state {:target (. js/document (getElementById "app"))}))
