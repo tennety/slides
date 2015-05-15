@@ -23,7 +23,10 @@
 (defroute "/" []
   (.setToken (History.) "/slides/0"))
 
-(defroute slide-path "/slides/:index" [index])
+(defroute slide-path "/slides/:index" [index]
+  (let [index (js/parseInt index)]
+    (when (within-slides? index app-state)
+    (swap! app-state assoc :index index))))
 
 (defn slide [model owner]
   (reify
