@@ -15,6 +15,11 @@
 (defroute "/" []
   (.setToken (History.) "/slides/0"))
 
+(defroute slide-path "/slides/:index" [index]
+  (let [index (js/parseInt index)]
+    (when (within-slides? index app-state)
+    (swap! app-state assoc :index index))))
+
 (defn handle-navigation []
   (let [history (History.)
         navigation EventType/NAVIGATE]
@@ -37,7 +42,7 @@
   (let [slides (:slides @model)
         current-pos (:index @model)
         upcoming-pos (f (js/parseInt current-pos))
-        index (if (within-slides? upcoming-pos) upcoming-pos current-pos)]
+        index (if (within-slides? upcoming-pos model) upcoming-pos current-pos)]
     (slide-path {:index index})))
 
 (defn app [model owner]
