@@ -2,7 +2,7 @@
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]))
 
-(defonce app-state (atom {:slide {}}))
+(defonce app-state (atom {:slides []}))
 
 (defn slide [model owner]
   (reify
@@ -18,13 +18,16 @@
   (reify
     om/IRender
     (render [_]
-      (om/build slide (:slide model)))))
+      (apply dom/div #js {:className "content"}
+         (om/build-all slide (:slides model))))))
 
-(def slide-img
-  {:title "A Bird's Eye View of ClojureScript"
-   :bg "/images/gull.jpg"})
+(def slide-imgs
+  [{:title "A Bird's Eye View of ClojureScript"
+    :bg "/images/gull.jpg"}
+   {:title "Using Om Components"
+    :bg "/images/gull2.jpg"}])
 
 (defn main []
   (om/root app app-state {:target (. js/document (getElementById "app"))}))
 
-(swap! app-state assoc :slide slide-img)
+(swap! app-state assoc :slides slide-imgs)
