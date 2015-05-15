@@ -14,7 +14,13 @@
         (dom/div #js {:className "slide-content banner"}
           (dom/h1 #js {} (:title model)))))))
 
-(defn next-slide [e model f])
+(defn next-slide [e model f]
+  (let [slides (:slides @model)
+        current-pos (:index @model)
+        upcoming-pos (f current-pos)]
+    (.preventDefault e)
+    (when (get slides upcoming-pos)
+      (om/update! model :index upcoming-pos))))
 
 (defn app [model owner]
   (reify
