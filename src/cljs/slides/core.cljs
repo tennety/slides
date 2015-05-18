@@ -29,7 +29,8 @@
     (swap! app-state assoc :index index))))
 
 (defn set-editing-state [owner editing text]
-  ;; Use om/set-state! to change the editing and text values
+  (om/set-state! owner :editing editing)
+  (om/set-state! owner :text text)
   (js/setTimeout #(.focus (om/get-node owner "title-edit")) 100))
 
 (defn update-title-on-enter [event owner model]
